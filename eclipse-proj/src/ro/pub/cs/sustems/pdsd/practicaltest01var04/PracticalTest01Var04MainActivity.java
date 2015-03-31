@@ -1,6 +1,7 @@
 package ro.pub.cs.sustems.pdsd.practicaltest01var04;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class PracticalTest01Var04MainActivity extends Activity {
@@ -20,7 +22,17 @@ public class PracticalTest01Var04MainActivity extends Activity {
 		  
 	    @Override
 	    public void onClick(View view) {
+	    	
 	    	EditText showText = (EditText)PracticalTest01Var04MainActivity.this.findViewById(R.id.show_txt);
+	    	
+ 	    	if (view.getId() == R.id.navigate_button) {
+ 	    		Intent intent = new Intent("ro.pub.cs.systems.pdsd.intent.action.PracticalTest01Var04SecondaryActivity");
+ 	    		intent.putExtra("answer", showText.getText());
+ 	           	startActivityForResult(intent, 11);
+ 	    		return;
+ 	    	}
+	    	
+	    	
 	    	
 	    	Button clickedButton = (Button)PracticalTest01Var04MainActivity.this.findViewById(view.getId());
 	    	
@@ -67,6 +79,22 @@ public class PracticalTest01Var04MainActivity extends Activity {
         
         
     }
+    
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    	Toast.makeText(this, "The activity returned with result "+resultCode, Toast.LENGTH_LONG).show();
+    	this.numTries++;
+    	if (resultCode == RESULT_OK) {
+    		this.numCorrect++;
+    	} else {
+    		this.numWrong++;
+    	}
+    	
+    	EditText showText = (EditText)PracticalTest01Var04MainActivity.this.findViewById(R.id.show_txt);
+    	showText.setText("");
+    	
+    }
+   
     
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
