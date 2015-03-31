@@ -2,6 +2,7 @@ package ro.pub.cs.sustems.pdsd.practicaltest01var04;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +33,7 @@ public class PracticalTest01Var04MainActivity extends Activity {
 	    
 	    }
 	  }
+	  private final static String TAG = "PracticalTest01Var04MainActivity";
 	
 	 int numTries = 0;
 	 int numCorrect = 0;
@@ -41,6 +43,15 @@ public class PracticalTest01Var04MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practical_test01_var04_main);
+        
+        // restore
+        if (savedInstanceState != null) {
+        	numTries = savedInstanceState.getInt("numTries");
+        	numCorrect= savedInstanceState.getInt("numCorrect");
+        	numWrong = savedInstanceState.getInt("numWrong");
+        }
+        
+        Log.d(TAG, "(tries: correct/wrong) " + numTries + ": " + numCorrect + "/" + numWrong);
         
         Button doButton = (Button)findViewById(R.id.do_button);
         doButton.setOnClickListener(buttonClickListener);
@@ -56,7 +67,15 @@ public class PracticalTest01Var04MainActivity extends Activity {
         
         
     }
+    
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
 
+        savedInstanceState.putInt("numTries", this.numTries);
+        savedInstanceState.putInt("numCorrect", this.numCorrect);
+        savedInstanceState.putInt("numWrong", this.numWrong);
+      
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
