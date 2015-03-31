@@ -4,14 +4,57 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 public class PracticalTest01Var04MainActivity extends Activity {
+	
 
+	private ButtonClickListener buttonClickListener = new ButtonClickListener();
+	
+	  private class ButtonClickListener implements OnClickListener {
+		  
+	    @Override
+	    public void onClick(View view) {
+	    	EditText showText = (EditText)PracticalTest01Var04MainActivity.this.findViewById(R.id.show_txt);
+	    	
+	    	Button clickedButton = (Button)PracticalTest01Var04MainActivity.this.findViewById(view.getId());
+	    	
+	    	if (showText.getText().toString().isEmpty()){
+	    		showText.setText(clickedButton.getText());
+	    	} else {
+	    		showText.setText(showText.getText() + "," + clickedButton.getText());
+	    	}
+	
+	    
+	    }
+	  }
+	
+	 int numTries = 0;
+	 int numCorrect = 0;
+	 int numWrong = 0;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practical_test01_var04_main);
+        
+        Button doButton = (Button)findViewById(R.id.do_button);
+        doButton.setOnClickListener(buttonClickListener);
+        
+        Button miButton = (Button)findViewById(R.id.mi_button);
+        miButton.setOnClickListener(buttonClickListener);
+        
+        Button solButton = (Button)findViewById(R.id.sol_button);
+        solButton.setOnClickListener(buttonClickListener);
+        
+        Button doPrimButton = (Button)findViewById(R.id.do_pr_button);
+        doPrimButton.setOnClickListener(buttonClickListener);
+        
+        
     }
 
 

@@ -14,7 +14,7 @@
         android:orientation="vertical" >
     
 	    <EditText
-	        android:id="@+id/show_button"
+	        android:id="@+id/show_txt"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:enabled="false"
